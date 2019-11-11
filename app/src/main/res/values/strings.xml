@@ -13,4 +13,12 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="login">Login</string>
+    <string name="ngo_sign_in">Sign in as a NGO?</string>
+    <string name="donor_sign_in">Sign in as a donor?</string>
+    <string name="ngo_id">Enter your NGO id</string>
+    <string name="ngo_paswword">Enter your paswword</string>
+    <string name="submit">Submit</string>
+    <string name="verification_code">Enter verification code</string>
 </resources>

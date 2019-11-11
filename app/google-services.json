@@ -1,0 +1,101 @@
+{
+  "project_info": {
+    "project_number": "960674817288",
+    "firebase_url": "https://homeofthings-6bd00.firebaseio.com",
+    "project_id": "homeofthings-6bd00",
+    "storage_bucket": "homeofthings-6bd00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960674817288:android:7ae48c1c8442706e",
+        "android_client_info": {
+          "package_name": "com.example.alokbharti.homeofthings"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960674817288-j9143asuab8ufdknprn58l6mp3de3dmi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alokbharti.homeofthings",
+            "certificate_hash": "5b1d9780f2d91eb10bfddd98ff8cc00c26b3ab88"
+          }
+        },
+        {
+          "client_id": "960674817288-7akdb8thphsd0gps7gi4ddbvuvrguv0h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.alokbharti.homeofthings",
+            "certificate_hash": "62428ed3cb5f4b34022f48551f82a76b6a912f5d"
+          }
+        },
+        {
+          "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpo_FLocFd5P9JKRJn6i0E82o9iCjmUeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960674817288:android:100955eff951e543",
+        "android_client_info": {
+          "package_name": "com.example.donationbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960674817288-b83gv50rohch02kos1us1raqfo49djls.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.donationbox",
+            "certificate_hash": "71d005d4acc8572b1a7d320a8b5c11fc83a62a66"
+          }
+        },
+        {
+          "client_id": "960674817288-tvv30lbr50uueltvuam261ndjkqhunou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.donationbox",
+            "certificate_hash": "cf6f8782ca62c08e08c8af475f9d0880da6433a3"
+          }
+        },
+        {
+          "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpo_FLocFd5P9JKRJn6i0E82o9iCjmUeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
