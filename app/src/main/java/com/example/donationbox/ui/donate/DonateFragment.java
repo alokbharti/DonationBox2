@@ -1,4 +1,4 @@
-package com.example.donationbox.ui.gallery;
+package com.example.donationbox.ui.donate;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,22 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.donationbox.R;
 
-public class GalleryFragment extends Fragment {
+public class DonateFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
+    private DonateViewModel galleryViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel.class);
+                ViewModelProviders.of(this).get(DonateViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
         galleryViewModel.getText().observe(this, s -> textView.setText(s));
