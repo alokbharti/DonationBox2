@@ -21,4 +21,6 @@
     <string name="ngo_paswword">Enter your paswword</string>
     <string name="submit">Submit</string>
     <string name="verification_code">Enter verification code</string>
+    <string name="mark_it_claimed">MARK IT CLAIMED</string>
+    <string name="undo_claim">UNDO CLAIM</string>
 </resources>

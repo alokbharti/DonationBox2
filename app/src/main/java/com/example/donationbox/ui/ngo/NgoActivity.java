@@ -8,6 +8,8 @@ import com.example.donationbox.R;
 
 public class NgoActivity extends AppCompatActivity {
 
+    private NgoViewModel ngoViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

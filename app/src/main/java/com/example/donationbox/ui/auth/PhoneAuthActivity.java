@@ -14,14 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.MainActivity;
 import com.example.donationbox.R;
 import com.example.donationbox.ui.ngo.NgoActivity;
 
 public class PhoneAuthActivity extends AppCompatActivity {
 
-    private boolean isNgoLogin = false;
     private EditText phoneNumberEt, ngoIdEt, ngoPasswordEt, verificationEt;
     private LinearLayout ngoLoginLayout, phoneLoginLayout, verificationLayout;
     private Button ngoLoginButton, phoneLoginButton, verificationButton;
@@ -37,11 +35,14 @@ public class PhoneAuthActivity extends AppCompatActivity {
         initViews();
 
         phoneAuthViewModel = ViewModelProviders.of(this).get(PhoneAuthViewModel.class);
-        phoneAuthViewModel.getUserLoginStatus().observe(this, userType ->{
-            if (userType.equals("NGO")){
-                startActivity(new Intent(this, NgoActivity.class));
-            } else if(userType.equals("DONOR")){
+        phoneAuthViewModel.getDonorLoginStatus().observe(this, isDonor ->{
+            if (isDonor){
                 startActivity(new Intent(this, MainActivity.class));
+            }
+        });
+        phoneAuthViewModel.getNGOLoginStatus().observe(this, isNGO ->{
+            if (isNGO){
+                startActivity(new Intent(this, NgoActivity.class));
             }
         });
 
@@ -93,12 +94,10 @@ public class PhoneAuthActivity extends AppCompatActivity {
                 return;
             }
 
-            if( !ngoId.equals(GlobalSettingsRepository.getNgoId(this)) ||
-                    !ngoPassword.equals(GlobalSettingsRepository.getNgoPassword(this))){
+            if(!phoneAuthViewModel.checkNgoCredential(ngoId, ngoPassword)){
                 Toast.makeText(this, "wrong credentials!!", Toast.LENGTH_SHORT).show();
                 return;
             } else{
-                GlobalSettingsRepository.setUserType(this, "NGO");
                 startActivity(new Intent(this, MainActivity.class));
             }
 

@@ -19,30 +19,42 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 
 public class PhoneAuthViewModel extends AndroidViewModel {
-    
-    private MutableLiveData<String> isUserLogged;
+
+    private MutableLiveData<Boolean> isDonorLoggedIn;
+    private MutableLiveData<Boolean> isNGOLoggedIn;
     private MutableLiveData<Boolean> isPhoneAuthSuccessful;
+    private PhoneRepository phoneRepository;
 
     private String verificationCode;
     
     public PhoneAuthViewModel(Application context){
         super(context);
-        isUserLogged = new MutableLiveData<>();
+        isDonorLoggedIn = new MutableLiveData<>();
+        isNGOLoggedIn = new MutableLiveData<>();
         isPhoneAuthSuccessful = new MutableLiveData<>();
         setUserLoginStatus();
+        phoneRepository = new PhoneRepository(getApplication());
     }
 
     private void setUserLoginStatus() {
-        String userType = GlobalSettingsRepository.getUserType(getApplication());
+        String userType = phoneRepository.getUserType();
         if (userType.length() == 0){
-            isUserLogged.setValue("");
+            isDonorLoggedIn.setValue(false) ;
+            isNGOLoggedIn.setValue(false) ;
         }else{
-            isUserLogged.setValue(userType);
+            if (userType.equals("DONOR")){
+                isDonorLoggedIn.setValue(true);
+            } else {
+                isNGOLoggedIn.setValue(false);
+            }
         }
     }
 
-    public LiveData<String> getUserLoginStatus(){
-        return isUserLogged;
+    public LiveData<Boolean> getDonorLoginStatus(){
+        return isDonorLoggedIn;
+    }
+    public LiveData<Boolean> getNGOLoginStatus(){
+        return isNGOLoggedIn;
     }
 
     public LiveData<Boolean> getPhoneAuthSuccessStatus(){
@@ -89,11 +101,22 @@ public class PhoneAuthViewModel extends AndroidViewModel {
         FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        GlobalSettingsRepository.setUserType(getApplication(), "DONOR");
+                        phoneRepository.setUserType("DONOR");
                         isPhoneAuthSuccessful.setValue(true);
                     } else {
                         isPhoneAuthSuccessful.setValue(false);
                     }
                 });
+    }
+
+    public boolean checkNgoCredential(String ngoId, String ngoPassword){
+        String savedId = phoneRepository.getNgoId();
+        String savedPassword = phoneRepository.getNgoPassword();
+        if( !ngoId.equals(savedId) || !ngoPassword.equals(savedPassword)){
+            return false;
+        } else{
+            phoneRepository.setUserType("NGO");
+            return true;
+        }
     }
 }
