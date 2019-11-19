@@ -9,11 +9,12 @@ public class Donor {
     private String donorProductQuality;
     private String donorProductImageUrl;
     private String donorProductClaimedBy;
-    private int donorPhoneNumber;
+    private String donorPhoneNumber;
     private int donorPincode;
+    private long donatedTimestamp;
     private boolean donorProductIsClaimed;
 
-    public Donor(String donorName, String donorAddress, String donorProductDetails, String donorProductCategory, String donorProductQuality, String donorProductImageUrl, String donorProductClaimedBy, int donorPhoneNumber, int donorPincode, boolean donorProductIsClaimed) {
+    public Donor(String donorName, String donorAddress, String donorProductDetails, String donorProductCategory, String donorProductQuality, String donorProductImageUrl, String donorProductClaimedBy, String donorPhoneNumber, int donorPincode, long donatedTimestamp, boolean donorProductIsClaimed) {
         this.donorName = donorName;
         this.donorAddress = donorAddress;
         this.donorProductDetails = donorProductDetails;
@@ -23,6 +24,7 @@ public class Donor {
         this.donorProductClaimedBy = donorProductClaimedBy;
         this.donorPhoneNumber = donorPhoneNumber;
         this.donorPincode = donorPincode;
+        this.donatedTimestamp = donatedTimestamp;
         this.donorProductIsClaimed = donorProductIsClaimed;
     }
 
@@ -82,11 +84,11 @@ public class Donor {
         this.donorProductClaimedBy = donorProductClaimedBy;
     }
 
-    public int getDonorPhoneNumber() {
+    public String getDonorPhoneNumber() {
         return donorPhoneNumber;
     }
 
-    public void setDonorPhoneNumber(int donorPhoneNumber) {
+    public void setDonorPhoneNumber(String donorPhoneNumber) {
         this.donorPhoneNumber = donorPhoneNumber;
     }
 
@@ -104,5 +106,13 @@ public class Donor {
 
     public void setDonorProductIsClaimed(boolean donorProductIsClaimed) {
         this.donorProductIsClaimed = donorProductIsClaimed;
+    }
+
+    public long getDonatedTimestamp() {
+        return donatedTimestamp;
+    }
+
+    public void setDonatedTimestamp(long donatedTimestamp) {
+        this.donatedTimestamp = donatedTimestamp;
     }
 }

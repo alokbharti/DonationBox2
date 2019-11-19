@@ -32,8 +32,8 @@ public class PhoneAuthViewModel extends AndroidViewModel {
         isDonorLoggedIn = new MutableLiveData<>();
         isNGOLoggedIn = new MutableLiveData<>();
         isPhoneAuthSuccessful = new MutableLiveData<>();
+        phoneRepository = new PhoneRepository(context);
         setUserLoginStatus();
-        phoneRepository = new PhoneRepository(getApplication());
     }
 
     private void setUserLoginStatus() {
