@@ -1,6 +1,7 @@
 package com.example.donationbox.ui.donate;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,12 +38,12 @@ public class DonateFragment extends Fragment {
     private DonateViewModel donateViewModel;
     private ImageView productImageView;
     private TextInputEditText userNameEt, userAddressEt, userPincodeEt, productDetailsEt;
-    private AutoCompleteTextView productQualityAt, productCategoryAt, uploadProgressAt;
+    private AutoCompleteTextView productQualityAt, productCategoryAt;
     private AppCompatButton donateButton;
     private ProgressBar progressBar;
 
     private String imageDownloadUrl = "";
-    private int uploadProgress =0;
+    private boolean isImageUploaded = false;
     private Uri localImageUri;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,12 +57,10 @@ public class DonateFragment extends Fragment {
         donateViewModel.getImageDownLoadUrl().observe(this, imageLink ->{
             imageDownloadUrl = imageLink;
         });
-        donateViewModel.getImageUploadProgress().observe(this, progress -> {
-            uploadProgress = progress;
-            uploadProgressAt.setText(String.format("%s %%", String.valueOf(progress)));
-            if(progress >=100){
+        donateViewModel.getImageUploadProgress().observe(this, isImageSaved -> {
+            isImageUploaded = isImageSaved;
+            if(isImageSaved){
                 progressBar.setVisibility(View.INVISIBLE);
-                uploadProgressAt.setVisibility(View.GONE);
                 final InputStream imageStream;
                 try {
                     imageStream = getActivity().getContentResolver().openInputStream(localImageUri);
@@ -85,7 +84,6 @@ public class DonateFragment extends Fragment {
         productQualityAt = root.findViewById(R.id.donor_product_quality);
         donateButton = root.findViewById(R.id.donate_button);
         progressBar = root.findViewById(R.id.progressbar);
-        uploadProgressAt = root.findViewById(R.id.progress_tv);
 
         String [] productCategories = new String [] {"Book", "Cloth", "Food", "Other"};
         String [] productQualities = new String [] {"Very Good", "Good", "Bad", "Very Bad"};
@@ -102,10 +100,17 @@ public class DonateFragment extends Fragment {
         });
 
         donateButton.setOnClickListener(view -> {
-            if(uploadProgress<100){
+            if(!isImageUploaded){
                 Toast.makeText(getActivity(), "Image is not uploaded yet!!", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            //show alert dialog and finish it when uploading is done
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
+                    .setMessage("Saving data....")
+                    .setCancelable(false)
+                    .show();
+
             String name = userNameEt.getText().toString();
             String address = userAddressEt.getText().toString();
             String pincode = userPincodeEt.getText().toString();
@@ -127,6 +132,18 @@ public class DonateFragment extends Fragment {
             Log.e("Donor details", ""+name+" "+address+" "+ productDetails+" "+ productCategory+" "+ productQuality+" "+ imageDownloadUrl+" "+ phnoeNumber);
 
             donateViewModel.saveDataToDatabase(donor);
+            donateViewModel.getDonorDataUploadingStatus().observe(this, isUploaded -> {
+                if(isUploaded){
+                    alertDialog.dismiss();
+                    userNameEt.setText("");
+                    userAddressEt.setText("");
+                    userPincodeEt.setText("");
+                    productDetailsEt.setText("");
+                    productCategoryAt.setText("");
+                    productQualityAt.setText("");
+                    productImageView.setImageResource(R.drawable.ic_baseline_add_photo_alternate_24);
+                }
+            });
         });
     }
 
@@ -138,7 +155,6 @@ public class DonateFragment extends Fragment {
                 localImageUri = data.getData();
                 donateViewModel.uploadAndGetImageUrl(localImageUri);
                 progressBar.setVisibility(View.VISIBLE);
-                uploadProgressAt.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(getActivity(), "File Not Selected!!", Toast.LENGTH_SHORT).show();
                 donateButton.setEnabled(false);

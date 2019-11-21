@@ -1,6 +1,10 @@
 package com.example.donationbox.ui.ngo;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.donationbox.ui.donate.Donor;
 import com.google.firebase.database.DataSnapshot;
@@ -13,33 +17,30 @@ import java.util.ArrayList;
 
 public class NgoRepository {
 
-    public ArrayList<ProductListForNgo> getAllProductList(){
-        ArrayList<ProductListForNgo> allProductList = new ArrayList<>();
-        ArrayList<ProductListForNgo> allClaimedProductList = new ArrayList<>();
-        ArrayList<ProductListForNgo> allNonClaimedProductList = new ArrayList<>();
+    public MutableLiveData<ArrayList<Donor>> getAllProductList(){
+        MutableLiveData<ArrayList<Donor>> allProductList = new MutableLiveData<>();
+        /*MutableLiveData<ArrayList<Donor>> allClaimedProductList = new MutableLiveData<>();
+        MutableLiveData<ArrayList<Donor>> allNonClaimedProductList = new MutableLiveData<>();*/
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference clothDatabaseRef = firebaseDatabase.getReference().child("Clothes");
-        DatabaseReference foodDatabaseRef = firebaseDatabase.getReference().child("Food");
-        DatabaseReference bookDatabaseRef = firebaseDatabase.getReference().child("Books");
-        DatabaseReference otherDatabaseRef = firebaseDatabase.getReference().child("Others");
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("Donor");
 
-        clothDatabaseRef.addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Donor> tempList = new ArrayList<>();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Donor donor = snapshot.getValue(Donor.class);
                     if (donor != null) {
-                        ProductListForNgo temp = new ProductListForNgo(donor.getDonorProductDetails(), donor.getDonorName(), donor.getDonorAddress(), donor.getDonorProductQuality(),
-                                donor.getDonorProductImageUrl(), donor.getDonorProductIsClaimed(), donor.getDonorPincode());
-
-                        if (temp.isClaimed()){
-                            allClaimedProductList.add(temp);
+                        /*if (donor.getDonorProductIsClaimed()){
+                            allClaimedProductList.s(donor);
                         } else{
-                            allNonClaimedProductList.add(temp);
-                        }
+                            allNonClaimedProductList.add(donor);
+                        }*/
+                        tempList.add(donor);
                     }
                 }
+                allProductList.setValue(tempList);
             }
 
             @Override
@@ -48,81 +49,42 @@ public class NgoRepository {
             }
         });
 
-        foodDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Donor donor = snapshot.getValue(Donor.class);
-                    if (donor != null) {
-                        ProductListForNgo temp = new ProductListForNgo(donor.getDonorProductDetails(), donor.getDonorName(), donor.getDonorAddress(), donor.getDonorProductQuality(),
-                                donor.getDonorProductImageUrl(), donor.getDonorProductIsClaimed(), donor.getDonorPincode());
-
-                        if (temp.isClaimed()){
-                            allClaimedProductList.add(temp);
-                        } else{
-                            allNonClaimedProductList.add(temp);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        bookDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Donor donor = snapshot.getValue(Donor.class);
-                    if (donor != null) {
-                        ProductListForNgo temp = new ProductListForNgo(donor.getDonorProductDetails(), donor.getDonorName(), donor.getDonorAddress(), donor.getDonorProductQuality(),
-                                donor.getDonorProductImageUrl(), donor.getDonorProductIsClaimed(), donor.getDonorPincode());
-
-                        if (temp.isClaimed()){
-                            allClaimedProductList.add(temp);
-                        } else{
-                            allNonClaimedProductList.add(temp);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        otherDatabaseRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Donor donor = snapshot.getValue(Donor.class);
-                    if (donor != null) {
-                        ProductListForNgo temp = new ProductListForNgo(donor.getDonorProductDetails(), donor.getDonorName(), donor.getDonorAddress(), donor.getDonorProductQuality(),
-                                donor.getDonorProductImageUrl(), donor.getDonorProductIsClaimed(), donor.getDonorPincode());
-
-                        if (temp.isClaimed()){
-                            allClaimedProductList.add(temp);
-                        } else{
-                            allNonClaimedProductList.add(temp);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        allProductList.addAll(allNonClaimedProductList);
-        allProductList.addAll(allClaimedProductList);
+        /*allProductList.setValue(allNonClaimedProductList);
+        allProductList.setValue(allClaimedProductList);*/
 
         return allProductList;
+    }
+
+    //timeStamp works here as primary key
+    public LiveData<Boolean> claimDonatedProduct(Donor donor, String ngoId){
+        MutableLiveData<Boolean> isProductUpdated = new MutableLiveData<>();
+        isProductUpdated.setValue(false);
+
+        donor.setDonorProductIsClaimed(true);
+        donor.setDonorProductClaimedBy(ngoId);
+        FirebaseDatabase.getInstance().getReference().child("Donor")
+                .child(String.valueOf(donor.getDonatedTimestamp()))
+                .setValue(donor)
+                .addOnSuccessListener(aVoid -> {
+                    isProductUpdated.setValue(true);
+                });
+
+        return isProductUpdated;
+    }
+
+    public LiveData<Boolean> undoClaimDonatedProduct(Donor donor, String ngoId){
+        MutableLiveData<Boolean> isProductUpdated = new MutableLiveData<>();
+        isProductUpdated.setValue(false);
+
+        donor.setDonorProductIsClaimed(false);
+        donor.setDonorProductClaimedBy("");
+        FirebaseDatabase.getInstance().getReference().child("Donor")
+                .child(String.valueOf(donor.getDonatedTimestamp()))
+                .setValue(donor)
+                .addOnSuccessListener(aVoid -> {
+                    isProductUpdated.setValue(true);
+                });
+
+        return isProductUpdated;
     }
 }

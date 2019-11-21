@@ -38,15 +38,6 @@
             android:layout_margin="20dp"
             android:visibility="invisible"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/progress_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10%"
-            android:textColor="@android:color/black"
-            android:layout_below="@id/progressbar"
-            android:layout_centerInParent="true"
-            android:visibility="gone"/>
         <TextView
             android:id="@+id/donor_note"
             android:layout_width="match_parent"
@@ -54,7 +45,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_below="@id/progress_tv"
+            android:layout_below="@id/donor_product_image"
             android:text="Note: Your mobile number will be displayed to NGOs and they may contact you for the product"
             />
 

@@ -14,6 +14,9 @@ public class Donor {
     private long donatedTimestamp;
     private boolean donorProductIsClaimed;
 
+    public Donor() {
+    }
+
     public Donor(String donorName, String donorAddress, String donorProductDetails, String donorProductCategory, String donorProductQuality, String donorProductImageUrl, String donorProductClaimedBy, String donorPhoneNumber, int donorPincode, long donatedTimestamp, boolean donorProductIsClaimed) {
         this.donorName = donorName;
         this.donorAddress = donorAddress;

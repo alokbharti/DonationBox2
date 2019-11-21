@@ -35,12 +35,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        root.findViewById(R.id.sign_out_btn).setOnClickListener(v->{
-            FirebaseAuth.getInstance().signOut();
-            GlobalSettingsRepository.setUserType(getContext(),"");
-            startActivity(new Intent(getActivity(), PhoneAuthActivity.class));
-        });
-
         return root;
     }
 }

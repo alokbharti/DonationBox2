@@ -12,16 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_donate"
         android:name="com.example.donationbox.ui.donate.DonateFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_donate"
         tools:layout="@layout/fragment_donor" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.donationbox.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_tools"

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,16 +34,20 @@ public class PhoneAuthActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone_auth);
 
         initViews();
-
         phoneAuthViewModel = ViewModelProviders.of(this).get(PhoneAuthViewModel.class);
         phoneAuthViewModel.getDonorLoginStatus().observe(this, isDonor ->{
             if (isDonor){
+                Log.e("User", "Donor");
                 startActivity(new Intent(this, MainActivity.class));
+            } else{
+                phoneLoginLayout.setVisibility(View.VISIBLE);
             }
         });
         phoneAuthViewModel.getNGOLoginStatus().observe(this, isNGO ->{
             if (isNGO){
                 startActivity(new Intent(this, NgoActivity.class));
+            } else{
+                phoneLoginLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -98,7 +103,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
                 Toast.makeText(this, "wrong credentials!!", Toast.LENGTH_SHORT).show();
                 return;
             } else{
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, NgoActivity.class));
             }
 
         });

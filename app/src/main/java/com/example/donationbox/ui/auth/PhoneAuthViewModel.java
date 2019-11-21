@@ -39,13 +39,13 @@ public class PhoneAuthViewModel extends AndroidViewModel {
     private void setUserLoginStatus() {
         String userType = phoneRepository.getUserType();
         if (userType.length() == 0){
-            isDonorLoggedIn.setValue(false) ;
-            isNGOLoggedIn.setValue(false) ;
+            isDonorLoggedIn.setValue(false);
+            isNGOLoggedIn.setValue(false);
         }else{
             if (userType.equals("DONOR")){
                 isDonorLoggedIn.setValue(true);
             } else {
-                isNGOLoggedIn.setValue(false);
+                isNGOLoggedIn.setValue(true);
             }
         }
     }
