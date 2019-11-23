@@ -4,27 +4,28 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.donationbox.ProductDataRepository;
 import com.example.donationbox.ui.donate.Donor;
 
 import java.util.ArrayList;
 
 public class NgoViewModel extends ViewModel {
 
-    private NgoRepository ngoRepository;
+    private ProductDataRepository productDataRepository;
 
     public NgoViewModel() {
-        ngoRepository = new NgoRepository();
+        productDataRepository = new ProductDataRepository();
     }
 
     public MutableLiveData<ArrayList<Donor>> getAllDonorList(){
-        return ngoRepository.getAllProductList();
+        return productDataRepository.getAllProductList();
     }
 
     public LiveData<Boolean> isProductClaimed(Donor donor, String ngoId){
-        return ngoRepository.claimDonatedProduct(donor, ngoId);
+        return productDataRepository.claimDonatedProduct(donor, ngoId);
     }
 
     public LiveData<Boolean> isUndoClaimDone(Donor donor, String ngoId){
-        return ngoRepository.undoClaimDonatedProduct(donor, ngoId);
+        return productDataRepository.undoClaimDonatedProduct(donor, ngoId);
     }
 }

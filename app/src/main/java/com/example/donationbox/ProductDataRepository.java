@@ -1,4 +1,4 @@
-package com.example.donationbox.ui.ngo;
+package com.example.donationbox;
 
 import android.util.Log;
 
@@ -15,7 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class NgoRepository {
+public class ProductDataRepository {
 
     public MutableLiveData<ArrayList<Donor>> getAllProductList(){
         MutableLiveData<ArrayList<Donor>> allProductList = new MutableLiveData<>();

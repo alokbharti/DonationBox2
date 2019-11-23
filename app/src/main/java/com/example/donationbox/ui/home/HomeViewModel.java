@@ -4,16 +4,21 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.donationbox.ProductDataRepository;
+import com.example.donationbox.ui.donate.Donor;
+
+import java.util.ArrayList;
+
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private ProductDataRepository productDataRepository;
 
     public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        productDataRepository = new ProductDataRepository();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<ArrayList<Donor>> getAllDonatedProductList(){
+        return productDataRepository.getAllProductList();
     }
+
 }

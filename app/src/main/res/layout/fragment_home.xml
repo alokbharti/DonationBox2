@@ -3,6 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/darker_gray">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/product_list_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.ngo.NgoActivity">
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
