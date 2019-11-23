@@ -25,7 +25,7 @@ public class NgoRepository {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference().child("Donor");
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Donor> tempList = new ArrayList<>();
@@ -65,9 +65,7 @@ public class NgoRepository {
         FirebaseDatabase.getInstance().getReference().child("Donor")
                 .child(String.valueOf(donor.getDonatedTimestamp()))
                 .setValue(donor)
-                .addOnSuccessListener(aVoid -> {
-                    isProductUpdated.setValue(true);
-                });
+                .addOnSuccessListener(aVoid -> isProductUpdated.setValue(true));
 
         return isProductUpdated;
     }
@@ -81,9 +79,7 @@ public class NgoRepository {
         FirebaseDatabase.getInstance().getReference().child("Donor")
                 .child(String.valueOf(donor.getDonatedTimestamp()))
                 .setValue(donor)
-                .addOnSuccessListener(aVoid -> {
-                    isProductUpdated.setValue(true);
-                });
+                .addOnSuccessListener(aVoid -> isProductUpdated.setValue(true));
 
         return isProductUpdated;
     }

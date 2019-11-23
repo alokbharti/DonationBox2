@@ -86,6 +86,7 @@
             tools:text="+91-9876543210"/>
 
         <LinearLayout
+            android:id="@+id/button_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/product_donor_phone_number"

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -15,7 +14,6 @@ import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.R;
 import com.example.donationbox.ui.auth.PhoneAuthActivity;
 import com.example.donationbox.ui.donate.Donor;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -45,20 +43,22 @@ public class NgoActivity extends AppCompatActivity implements ProductClickListen
             allDonatedProductList.addAll(productList);
             productListAdapter.notifyDataSetChanged();
         });
-        Log.e("product list", allDonatedProductList.toString());
 
+        //ignore this line, as it will be modified when number of NGOs will increase
         ngoId = GlobalSettingsRepository.getNgoId(this);
 
     }
 
     @Override
-    public void onClaimListener(Donor donor) {
+    public void onClaimListener(Donor donor, int position) {
         ngoViewModel.isProductClaimed(donor, ngoId);
+        productListAdapter.notifyItemChanged(position);
     }
 
     @Override
-    public void onUndoClaimListener(Donor donor) {
+    public void onUndoClaimListener(Donor donor, int position) {
         ngoViewModel.isUndoClaimDone(donor, ngoId);
+        productListAdapter.notifyItemChanged(position);
     }
 
     @Override

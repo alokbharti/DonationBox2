@@ -38,14 +38,18 @@ public class PhoneAuthActivity extends AppCompatActivity {
         phoneAuthViewModel.getDonorLoginStatus().observe(this, isDonor ->{
             if (isDonor){
                 Log.e("User", "Donor");
-                startActivity(new Intent(this, MainActivity.class));
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             } else{
                 phoneLoginLayout.setVisibility(View.VISIBLE);
             }
         });
         phoneAuthViewModel.getNGOLoginStatus().observe(this, isNGO ->{
             if (isNGO){
-                startActivity(new Intent(this, NgoActivity.class));
+                Intent intent = new Intent(this, NgoActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             } else{
                 phoneLoginLayout.setVisibility(View.VISIBLE);
             }
@@ -54,7 +58,9 @@ public class PhoneAuthActivity extends AppCompatActivity {
         phoneAuthViewModel.getPhoneAuthSuccessStatus().observe(this, status ->{
             if(status){
                 progressBar.setVisibility(View.GONE);
-                startActivity(new Intent(this, MainActivity.class));
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             } else{
 
             }
@@ -103,7 +109,9 @@ public class PhoneAuthActivity extends AppCompatActivity {
                 Toast.makeText(this, "wrong credentials!!", Toast.LENGTH_SHORT).show();
                 return;
             } else{
-                startActivity(new Intent(this, NgoActivity.class));
+                Intent intent = new Intent(this, NgoActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
 
         });

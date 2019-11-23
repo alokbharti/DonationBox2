@@ -4,6 +4,6 @@ import com.example.donationbox.ui.donate.Donor;
 
 public interface ProductClickListener {
 
-    void onClaimListener(Donor donor);
-    void onUndoClaimListener(Donor donor);
+    void onClaimListener(Donor donor, int position);
+    void onUndoClaimListener(Donor donor, int position);
 }

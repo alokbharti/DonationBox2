@@ -53,24 +53,6 @@ public class DonateFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_donor, container, false);
 
         initView(root);
-
-        donateViewModel.getImageDownLoadUrl().observe(this, imageLink ->{
-            imageDownloadUrl = imageLink;
-        });
-        donateViewModel.getImageUploadProgress().observe(this, isImageSaved -> {
-            isImageUploaded = isImageSaved;
-            if(isImageSaved){
-                progressBar.setVisibility(View.INVISIBLE);
-                final InputStream imageStream;
-                try {
-                    imageStream = getActivity().getContentResolver().openInputStream(localImageUri);
-                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                    productImageView.setImageBitmap(selectedImage);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
         return root;
     }
 
@@ -117,7 +99,7 @@ public class DonateFragment extends Fragment {
             String productDetails = productDetailsEt.getText().toString();
             String productCategory = productCategoryAt.getText().toString();
             String productQuality = productQualityAt.getText().toString();
-            String phnoeNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+            String phoneNumber = FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
 
             if (name.length()==0 || address.length()==0 || pincode.length()==0 || productDetails.length()==0
                     || productCategory.length()==0 || productQuality.length()==0){
@@ -126,13 +108,12 @@ public class DonateFragment extends Fragment {
             }
 
             Donor donor = new Donor(name, address, productDetails, productCategory, productQuality,
-                    imageDownloadUrl, "", phnoeNumber,
+                    imageDownloadUrl, "", phoneNumber,
                     Integer.parseInt(pincode), System.currentTimeMillis(), false);
 
-            Log.e("Donor details", ""+name+" "+address+" "+ productDetails+" "+ productCategory+" "+ productQuality+" "+ imageDownloadUrl+" "+ phnoeNumber);
+            Log.e("Donor details", ""+name+" "+address+" "+ productDetails+" "+ productCategory+" "+ productQuality+" "+ imageDownloadUrl+" "+ phoneNumber);
 
-            donateViewModel.saveDataToDatabase(donor);
-            donateViewModel.getDonorDataUploadingStatus().observe(this, isUploaded -> {
+            donateViewModel.getDonorDataUploadingStatus(donor).observe(this, isUploaded -> {
                 if(isUploaded){
                     alertDialog.dismiss();
                     userNameEt.setText("");
@@ -152,10 +133,27 @@ public class DonateFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST_CODE){
             if (data != null) {
-                localImageUri = data.getData();
-                donateViewModel.uploadAndGetImageUrl(localImageUri);
                 progressBar.setVisibility(View.VISIBLE);
+                localImageUri = data.getData();
+
+                donateViewModel.getImageDownLoadUrl(localImageUri).observe(this, imageLink ->{
+                    imageDownloadUrl = imageLink;
+                    if(imageDownloadUrl.length()>1){
+                        isImageUploaded = true;
+                        progressBar.setVisibility(View.INVISIBLE);
+                        final InputStream imageStream;
+                        try {
+                            imageStream = getActivity().getContentResolver().openInputStream(localImageUri);
+                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            productImageView.setImageBitmap(selectedImage);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
             } else {
+                isImageUploaded = false;
                 Toast.makeText(getActivity(), "File Not Selected!!", Toast.LENGTH_SHORT).show();
                 donateButton.setEnabled(false);
                 donateButton.setClickable(false);

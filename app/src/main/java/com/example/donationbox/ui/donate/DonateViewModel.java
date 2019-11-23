@@ -18,6 +18,7 @@ public class DonateViewModel extends ViewModel {
     private MutableLiveData<String> imageUrl;
     private MutableLiveData<Boolean> isImageUploaded;
     private MutableLiveData<Boolean> isDonorDataSaved;
+    private DonorRepository donorRepository;
 
     public DonateViewModel() {
         imageUrl = new MutableLiveData<>();
@@ -26,39 +27,13 @@ public class DonateViewModel extends ViewModel {
         isImageUploaded.setValue(false);
         isDonorDataSaved = new MutableLiveData<>();
         isDonorDataSaved.setValue(false);
+
+        donorRepository = new DonorRepository();
     }
 
-    public LiveData<String> getImageDownLoadUrl() {
-        return imageUrl;
+    public LiveData<String> getImageDownLoadUrl(Uri file) {
+        return donorRepository.uploadAndGetImageUrl(file);
     }
-    public LiveData<Boolean> getImageUploadProgress() {
-        return isImageUploaded;
-    }
-    public LiveData<Boolean> getDonorDataUploadingStatus(){return isDonorDataSaved;}
-
-    public void uploadAndGetImageUrl(Uri file){
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("ProductImages");
-        storageReference.putFile(file)
-                .continueWithTask(task -> {
-                    // Forward any exceptions
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-                    // Request the public download URL
-                    return storageReference.getDownloadUrl();
-                })
-                .addOnSuccessListener(uri1 -> {
-                    Log.e("Image upload success", uri1.toString());
-                    isImageUploaded.setValue(true);
-                    imageUrl.setValue(uri1.toString());
-                });
-    }
-
-    public void saveDataToDatabase(Donor donor){
-        DatabaseReference localDbRef;
-        localDbRef = FirebaseDatabase.getInstance().getReference().child("Donor");
-
-        localDbRef.push().setValue(donor).addOnSuccessListener(aVoid -> isDonorDataSaved.setValue(true));
-    }
+    public LiveData<Boolean> getDonorDataUploadingStatus(Donor donor){return donorRepository.saveDataToDatabase(donor);}
 
 }

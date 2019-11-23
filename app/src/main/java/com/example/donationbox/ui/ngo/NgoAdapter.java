@@ -15,8 +15,6 @@ import com.example.donationbox.R;
 import com.example.donationbox.ui.donate.Donor;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class NgoAdapter extends RecyclerView.Adapter<NgoAdapter.ViewHolder> {
@@ -51,27 +49,27 @@ public class NgoAdapter extends RecyclerView.Adapter<NgoAdapter.ViewHolder> {
         Picasso.with(context).load(donor.getDonorProductImageUrl()).into(holder.productImage);
 
         holder.claimButton.setOnClickListener(v -> {
-            productClickListener.onClaimListener(donor);
+            productClickListener.onClaimListener(donor, position);
             holder.claimButton.setEnabled(false);
-            holder.claimButton.setClickable(false);
             holder.undoButton.setClickable(true);
             holder.undoButton.setEnabled(true);
         });
 
-        holder.claimButton.setOnClickListener(v -> {
-            productClickListener.onUndoClaimListener(donor);
-            holder.undoButton.setClickable(false);
+        holder.undoButton.setOnClickListener(v -> {
+            productClickListener.onUndoClaimListener(donor, position);
             holder.undoButton.setEnabled(false);
-            holder.claimButton.setEnabled(true);
             holder.claimButton.setClickable(true);
+            holder.claimButton.setEnabled(true);
         });
 
         if (donor.getDonorProductIsClaimed()){
             holder.claimButton.setEnabled(false);
-            holder.claimButton.setClickable(false);
+            holder.undoButton.setClickable(true);
+            holder.undoButton.setEnabled(true);
         } else{
-            holder.undoButton.setClickable(false);
             holder.undoButton.setEnabled(false);
+            holder.claimButton.setEnabled(true);
+            holder.claimButton.setClickable(true);
         }
     }
 
