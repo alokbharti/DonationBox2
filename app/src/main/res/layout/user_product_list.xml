@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:id="@+id/product_card"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -12,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/product_image"
+            android:id="@+id/user_product_image"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:src="@drawable/ic_baseline_photo_actual_24"
@@ -20,10 +19,10 @@
             android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/product_details"
+            android:id="@+id/user_product_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_image"
+            android:layout_below="@id/user_product_image"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:text="@string/app_name"
@@ -33,78 +32,79 @@
             android:textColor="@android:color/black"/>
 
         <TextView
-            android:id="@+id/product_category"
+            android:id="@+id/user_product_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_image"
+            android:layout_below="@id/user_product_image"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="20dp"
             tools:text="clothes"/>
 
         <TextView
-            android:id="@+id/product_condition"
+            android:id="@+id/user_product_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_details"
+            android:layout_below="@id/user_product_details"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="Product Quality: Very Good"/>
 
         <TextView
-            android:id="@+id/product_donor_name"
+            android:id="@+id/user_product_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_condition"
+            android:layout_below="@id/user_product_condition"
+            tools:text="Claimed by: Jagriti"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/user_product_donor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/user_product_status"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="Alok Bharti"/>
 
         <TextView
-            android:id="@+id/product_donor_address"
+            android:id="@+id/user_product_donor_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_donor_name"
+            android:layout_below="@id/user_product_donor_name"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="Hall-3, PDPM IIITDM Jabalpur, M.P."/>
 
         <TextView
-            android:id="@+id/product_donor_pincode"
+            android:id="@+id/user_product_donor_pincode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_donor_address"
+            android:layout_below="@id/user_product_donor_address"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="482005"/>
 
         <TextView
-            android:id="@+id/product_donor_phone_number"
+            android:id="@+id/user_product_donor_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_donor_pincode"
+            android:layout_below="@id/user_product_donor_pincode"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="+91-9876543210"/>
 
-
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/mark_claim_button"
+            android:id="@+id/delete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_below="@id/user_product_donor_phone_number"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/shape"
-            android:layout_below="@id/product_donor_phone_number"
-            android:text="@string/mark_it_claimed"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/undo_claim_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/shape"
-            android:layout_below="@id/product_donor_phone_number"
-            android:text="@string/undo_claim"
-            android:visibility="gone"/>
+            android:text="@string/delete"/>
 
     </RelativeLayout>
 

@@ -8,17 +8,25 @@
     android:background="@android:color/darker_gray">
 
     <ProgressBar
-        android:id="@+id/ngo_progressbar"
+        android:id="@+id/user_product_progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"/>
 
+    <TextView
+        android:id="@+id/user_note_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        tools:text="You haven't donated any product yet!!"/>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/donor_list_recyclerview"
+        android:id="@+id/user_product_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.ngo.NgoActivity">
+        android:layout_height="match_parent">
     </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

@@ -10,15 +10,15 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
+    <string name="menu_user_product">My Product</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="phone_number">Phone Number</string>
     <string name="login">Login</string>
     <string name="ngo_sign_in">Sign in as a NGO?</string>
     <string name="donor_sign_in">Sign in as a donor?</string>
-    <string name="ngo_id">Enter your NGO id</string>
-    <string name="ngo_paswword">Enter your paswword</string>
+    <string name="ngo_id"> ID</string>
+    <string name="ngo_paswword"> Password</string>
     <string name="submit">Submit</string>
     <string name="verification_code">Enter verification code</string>
     <string name="mark_it_claimed">MARK IT CLAIMED</string>
@@ -32,4 +32,6 @@
     <string name="donate">DONATE</string>
     <string name="menu_donate">Donate</string>
     <string name="donor_note">We hope you understand that your address and mobile number will be displayed to NGOs and they may contact you for the product.</string>
+    <string name="delete">Delete this product</string>
+    <string name="my_claimed_product">My Claimed Product</string>
 </resources>

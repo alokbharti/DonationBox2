@@ -1,19 +1,20 @@
-package com.example.donationbox.ui.tools;
+package com.example.donationbox.ui.user_product;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ToolsViewModel extends ViewModel {
+import com.example.donationbox.ui.donate.Donor;
 
-    private MutableLiveData<String> mText;
+public class UserProductViewModel extends ViewModel {
 
-    public ToolsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is tools fragment");
+    private UserProductRepository userProductRepository;
+
+    public UserProductViewModel() {
+        userProductRepository = new UserProductRepository();
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<Boolean> deleteProduct(Donor donor) {
+        return userProductRepository.deleteProductFromDb(donor);
     }
 }
