@@ -13,7 +13,7 @@ import com.example.donationbox.R;
 
 public class NgoViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView productDetails, userName, userAddress, userPincode, productCategory, productQuality, userPhoneNumber;
+    public TextView productDetails, userName, userAddress, userPincode, productQuality, userPhoneNumber;
     public AppCompatImageView productImage;
     public AppCompatButton claimButton, undoButton;
     public CardView productCard;
@@ -22,7 +22,6 @@ public class NgoViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         productDetails = itemView.findViewById(R.id.product_details);
-        productCategory = itemView.findViewById(R.id.product_category);
         productQuality = itemView.findViewById(R.id.product_condition);
         userName = itemView.findViewById(R.id.product_donor_name);
         userAddress = itemView.findViewById(R.id.product_donor_address);

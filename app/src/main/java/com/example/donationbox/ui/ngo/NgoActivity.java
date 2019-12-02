@@ -2,16 +2,13 @@ package com.example.donationbox.ui.ngo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,8 +17,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.R;
@@ -29,14 +24,10 @@ import com.example.donationbox.ui.auth.PhoneAuthActivity;
 import com.example.donationbox.ui.donate.Donor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.firebase.ui.database.SnapshotParser;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class NgoActivity extends AppCompatActivity{
 
@@ -85,7 +76,8 @@ public class NgoActivity extends AppCompatActivity{
         progressBar = findViewById(R.id.ngo_progressbar);
         donorListRecyclerView = findViewById(R.id.donor_list_recyclerview);
         donorListRecyclerView.setHasFixedSize(false);
-        donorListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        donorListRecyclerView.setLayoutManager(gridLayoutManager);
 
         Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed").equalTo(false);
         FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>().setQuery(query, Donor.class).build();
@@ -100,7 +92,7 @@ public class NgoActivity extends AppCompatActivity{
             @NonNull
             @Override
             public NgoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(NgoActivity.this).inflate(R.layout.ngo_product_list, parent, false);
+                View view = LayoutInflater.from(NgoActivity.this).inflate(R.layout.ngo_product_list_item, parent, false);
                 return new NgoViewHolder(view);
             }
 
@@ -108,7 +100,6 @@ public class NgoActivity extends AppCompatActivity{
             protected void onBindViewHolder(@NonNull NgoViewHolder holder, int position, @NonNull Donor donor) {
                 Log.e("pincode", String.valueOf(donor.getDonorPincode()));
                 holder.productDetails.setText(donor.getDonorProductDetails());
-                holder.productCategory.setText(donor.getDonorProductCategory());
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
                 holder.userAddress.setText(donor.getDonorAddress());
                 holder.userName.setText(donor.getDonorName());
@@ -133,17 +124,17 @@ public class NgoActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.ngo_menu, menu);
         return true;
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_sign_out){
+        if (item.getItemId() == R.id.ngo_sign_out){
             GlobalSettingsRepository.setUserType(this, "");
             startActivity(new Intent(this, PhoneAuthActivity.class));
-        } else if(item.getItemId() == R.id.action_claimed_product){
+        } else if(item.getItemId() == R.id.ngo_claimed_product){
             startActivity(new Intent(this, NgoClaimedProductActivity.class));
         }
         return super.onOptionsItemSelected(item);
@@ -164,7 +155,7 @@ public class NgoActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         if(isDataFiltered){
-            Query query = dbRef.child("Donor");
+            Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed");
             FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>().setQuery(query, Donor.class).build();
             adapter.updateOptions(options);
             editText.setText("");

@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,9 +41,11 @@ public class HomeFragment extends Fragment {
         progressBar = root.findViewById(R.id.home_progressbar);
         productListRecyclerView = root.findViewById(R.id.product_list_recyclerview);
         productListRecyclerView.setHasFixedSize(false);
-        productListRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+        productListRecyclerView.setLayoutManager(gridLayoutManager);
 
-        Query query = FirebaseDatabase.getInstance().getReference().child("Donor");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Donor").orderByChild("donorPhoneNumber");
+
         FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>().setQuery(query, Donor.class).build();
 
         adapter = new FirebaseRecyclerAdapter<Donor, ProductHolder>(options) {
@@ -67,7 +70,6 @@ public class HomeFragment extends Fragment {
             protected void onBindViewHolder(ProductHolder holder, int position, Donor donor) {
                 // Bind the Chat object to the ChatHolder
                 holder.productDetails.setText(donor.getDonorProductDetails());
-                holder.productCategory.setText(donor.getDonorProductCategory());
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
                 holder.userName.setText(donor.getDonorName());
                 Picasso.with(getContext()).load(donor.getDonorProductImageUrl()).into(holder.productImage);

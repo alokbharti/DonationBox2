@@ -12,7 +12,7 @@ import com.example.donationbox.R;
 
 public class UserProductViewHolder extends RecyclerView.ViewHolder {
 
-    public TextView productDetails, userName, userAddress, userPincode, productCategory, productQuality, userPhoneNumber, userProductStatus;
+    public TextView productDetails, userName, userAddress, userPincode, productTimestamp, productQuality, userPhoneNumber, userProductStatus;
     public AppCompatImageView productImage;
     public AppCompatButton deleteButton;
 
@@ -20,7 +20,7 @@ public class UserProductViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         productDetails = itemView.findViewById(R.id.user_product_details);
-        productCategory = itemView.findViewById(R.id.user_product_category);
+        productTimestamp = itemView.findViewById(R.id.user_product_timestamp);
         productQuality = itemView.findViewById(R.id.user_product_condition);
         userName = itemView.findViewById(R.id.user_product_donor_name);
         userAddress = itemView.findViewById(R.id.user_product_donor_address);

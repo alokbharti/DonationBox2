@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.R;
 import com.example.donationbox.ui.donate.Donor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -51,7 +52,12 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
         claimedListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed").equalTo(true);
-        FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>().setQuery(query, Donor.class).build();
+        FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>()
+                .setQuery(query, snapshot->{
+                    Donor donor = snapshot.getValue(Donor.class);
+                    return donor.getDonorProductClaimedBy().equals(GlobalSettingsRepository.getNgoId(this)) ? donor : null;
+                })
+                .build();
 
         adapter = new FirebaseRecyclerAdapter<Donor, NgoViewHolder>(options){
 
@@ -63,7 +69,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
             @NonNull
             @Override
             public NgoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(NgoClaimedProductActivity.this).inflate(R.layout.ngo_product_list, parent, false);
+                View view = LayoutInflater.from(NgoClaimedProductActivity.this).inflate(R.layout.ngo_product_list_item, parent, false);
                 return new NgoViewHolder(view);
             }
 
