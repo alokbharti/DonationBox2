@@ -34,4 +34,5 @@
     <string name="donor_note">We hope you understand that your address and mobile number will be displayed to NGOs and they may contact you for the product.</string>
     <string name="delete">Delete this product</string>
     <string name="my_claimed_product">My Claimed Product</string>
+    <string name="resend">Resend verification code</string>
 </resources>

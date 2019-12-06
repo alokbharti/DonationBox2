@@ -19,14 +19,18 @@ import com.example.donationbox.MainActivity;
 import com.example.donationbox.R;
 import com.example.donationbox.ui.ngo.NgoActivity;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class PhoneAuthActivity extends AppCompatActivity {
 
-    private EditText phoneNumberEt, ngoIdEt, ngoPasswordEt, verificationEt;
+    private EditText phoneNumberEt, ngoIdEt, ngoPasswordEt;
     private LinearLayout ngoLoginLayout, phoneLoginLayout, verificationLayout;
-    private Button ngoLoginButton, phoneLoginButton, verificationButton;
-    private TextView ngoLoginTv, donorLoginTv;
+    private Button ngoLoginButton, phoneLoginButton, resendCodeButton;
+    private TextView ngoLoginTv, donorLoginTv, timerTv;
     private PhoneAuthViewModel phoneAuthViewModel;
     private ProgressBar progressBar;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,6 @@ public class PhoneAuthActivity extends AppCompatActivity {
         phoneNumberEt = findViewById(R.id.phone_number_et);
         ngoIdEt = findViewById(R.id.ngo_id_et);
         ngoPasswordEt = findViewById(R.id.ngo_password_et);
-        verificationEt = findViewById(R.id.verification_code_et);
 
         ngoLoginLayout = findViewById(R.id.ngo_login_layout);
         phoneLoginLayout = findViewById(R.id.normal_login_layout);
@@ -80,10 +83,11 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
         ngoLoginButton = findViewById(R.id.ngo_login_button);
         phoneLoginButton = findViewById(R.id.login_button);
-        verificationButton = findViewById(R.id.verification_button);
+        resendCodeButton = findViewById(R.id.resend_code_button);
 
         ngoLoginTv = findViewById(R.id.ngo_login_tv);
         donorLoginTv = findViewById(R.id.donor_login_tv);
+        timerTv = findViewById(R.id.timer_text);
 
         progressBar = findViewById(R.id.progressbar);
 
@@ -117,7 +121,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
         });
 
         phoneLoginButton.setOnClickListener(v->{
-            String phoneNumber = phoneNumberEt.getText().toString();
+            phoneNumber = phoneNumberEt.getText().toString();
 
             if(phoneNumber.length() < 10){
                 phoneNumberEt.setError("Phone number is wrong!!");
@@ -127,25 +131,49 @@ public class PhoneAuthActivity extends AppCompatActivity {
             phoneLoginLayout.setVisibility(View.GONE);
             ngoLoginLayout.setVisibility(View.GONE);
             verificationLayout.setVisibility(View.VISIBLE);
+            timerTv.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.VISIBLE);
 
             sendVerificationCode("+91"+phoneNumber);
+            setTimer();
+
         });
 
-        verificationButton.setOnClickListener( v-> {
-            String code = verificationEt.getText().toString();
-            if (code.isEmpty() || code.length()<6){
-                verificationEt.setError("wrong code!!");
-                verificationEt.requestFocus();
-                return;
-            }
-
-            phoneAuthViewModel.verifyCode(code);
+        resendCodeButton.setOnClickListener( v-> {
+            sendVerificationCode("+91"+phoneNumber);
+            resendCodeButton.setVisibility(View.GONE);
+            setTimer();
         });
     }
 
     private void sendVerificationCode(String phoneNumber) {
-        progressBar.setVisibility(View.VISIBLE);
         phoneAuthViewModel.sendCode(phoneNumber);
+    }
+
+    private void setTimer(){
+        final int[] counter = {0};
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                counter[0]++;
+                runOnUiThread(() -> {
+                    int seconds = counter[0] % 60;
+                    int minutes = counter[0] / 60;
+                    String sec= String.valueOf(seconds);
+                    String min = "0"+ minutes;
+                    if(seconds<10){
+                        sec = "0"+sec;
+                    }
+                    timerTv.setText(String.format("Auto verifying your code %s:%s", min, sec));
+                    if(counter[0]==120){
+                        this.cancel();
+                        resendCodeButton.setVisibility(View.VISIBLE);
+                        timerTv.setText("");
+                    }
+                });
+
+            }
+        }, 0, 1000);
     }
 
     @Override

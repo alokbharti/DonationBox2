@@ -13,19 +13,18 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/product_image"
-            android:layout_width="match_parent"
+            android:layout_width="180dp"
             android:layout_height="180dp"
             android:src="@drawable/ic_baseline_photo_actual_24"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:scaleType="centerCrop"/>
 
         <TextView
             android:id="@+id/product_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/product_image"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@id/product_image"
+            android:layout_marginTop="10dp"
             android:text="@string/app_name"
             android:textSize="20sp"
             android:fontFamily="@font/avenir"
@@ -36,8 +35,8 @@
             android:id="@+id/product_condition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_details"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="Product Quality: Very Good"/>
 
@@ -45,8 +44,8 @@
             android:id="@+id/product_donor_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_condition"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="Alok Bharti"/>
 
@@ -54,8 +53,8 @@
             android:id="@+id/product_donor_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_name"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="Hall-3, PDPM IIITDM Jabalpur, M.P."/>
 
@@ -63,28 +62,35 @@
             android:id="@+id/product_donor_pincode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_address"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
             tools:text="482005"/>
 
         <TextView
             android:id="@+id/product_donor_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_pincode"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             tools:text="+91-9876543210"/>
 
+        <TextView
+            android:id="@+id/product_donor_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/product_image"
+            android:layout_below="@id/product_donor_phone_number"
+            android:layout_marginTop="5dp"
+            tools:text="12/21/2019"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/mark_claim_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:background="@drawable/shape"
-            android:layout_below="@id/product_donor_phone_number"
+            android:layout_margin="5dp"
+            android:layout_below="@id/product_image"
             android:text="@string/mark_it_claimed"/>
 
         <androidx.appcompat.widget.AppCompatButton

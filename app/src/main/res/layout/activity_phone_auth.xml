@@ -130,7 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ProgressBar
             android:id="@+id/progressbar"
@@ -139,21 +139,23 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
 
-        <EditText
-            android:id="@+id/verification_code_et"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/timer_text"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/verification_code"
-            android:layout_margin="24dp"/>
+            android:layout_gravity="center"
+            android:text="Auto Verifying your code 00:00"
+            android:visibility="gone"/>
 
         <Button
-            android:id="@+id/verification_button"
+            android:id="@+id/resend_code_button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/submit"
+            android:text="@string/resend"
             android:backgroundTint="@color/colorPrimaryDark"
             android:layout_marginEnd="24dp"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="24dp"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -77,7 +77,6 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull NgoViewHolder holder, int position, @NonNull Donor donor) {
                 Log.e("pincode", String.valueOf(donor.getDonorPincode()));
                 holder.productDetails.setText(donor.getDonorProductDetails());
-                holder.productCategory.setText(donor.getDonorProductCategory());
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
                 holder.userAddress.setText(donor.getDonorAddress());
                 holder.userName.setText(donor.getDonorName());

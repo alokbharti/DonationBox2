@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.ProgressBar;
 
 import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.R;
+import com.example.donationbox.UtilFunctions;
 import com.example.donationbox.ui.auth.PhoneAuthActivity;
 import com.example.donationbox.ui.donate.Donor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -76,8 +78,7 @@ public class NgoActivity extends AppCompatActivity{
         progressBar = findViewById(R.id.ngo_progressbar);
         donorListRecyclerView = findViewById(R.id.donor_list_recyclerview);
         donorListRecyclerView.setHasFixedSize(false);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-        donorListRecyclerView.setLayoutManager(gridLayoutManager);
+        donorListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed").equalTo(false);
         FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>().setQuery(query, Donor.class).build();
@@ -105,6 +106,7 @@ public class NgoActivity extends AppCompatActivity{
                 holder.userName.setText(donor.getDonorName());
                 holder.userPincode.setText(String.valueOf(donor.getDonorPincode()));
                 holder.userPhoneNumber.setText(String.valueOf(donor.getDonorPhoneNumber()));
+                holder.userDate.setText(UtilFunctions.getDateFromTimeStamp(donor.getDonatedTimestamp()));
                 Picasso.with(NgoActivity.this).load(donor.getDonorProductImageUrl()).into(holder.productImage);
 
                 holder.claimButton.setOnClickListener(v -> {
