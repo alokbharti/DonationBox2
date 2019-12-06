@@ -32,6 +32,9 @@ public class PhoneAuthActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private String phoneNumber;
 
+    private Timer timer;
+    private int currentLoginState =0; //0 is for phone number layout and 1 for code verification layout
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +124,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
         });
 
         phoneLoginButton.setOnClickListener(v->{
+            currentLoginState = 1;
             phoneNumber = phoneNumberEt.getText().toString();
 
             if(phoneNumber.length() < 10){
@@ -152,7 +156,8 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
     private void setTimer(){
         final int[] counter = {0};
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 counter[0]++;
@@ -168,7 +173,8 @@ public class PhoneAuthActivity extends AppCompatActivity {
                     if(counter[0]==120){
                         this.cancel();
                         resendCodeButton.setVisibility(View.VISIBLE);
-                        timerTv.setText("");
+                        timerTv.setText("Unable to get code");
+                        Toast.makeText(PhoneAuthActivity.this, "Please make sure you've an active internet connection or check your mobile number!!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -178,7 +184,14 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finishAffinity();
+        if (currentLoginState == 1){
+            if (timer!=null) timer.cancel();
+            verificationLayout.setVisibility(View.GONE);
+            phoneLoginLayout.setVisibility(View.VISIBLE);
+            currentLoginState = 0;
+        } else {
+            super.onBackPressed();
+            finishAffinity();
+        }
     }
 }
