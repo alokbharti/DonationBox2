@@ -7,7 +7,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary2">
 
         <ImageView
             android:id="@+id/donor_product_image"
@@ -33,11 +34,14 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:hint="@string/donor_name"
-            app:boxStrokeColor="@color/colorAccent">
+            android:textColorHint="@android:color/white"
+            app:hintTextColor="@android:color/white"
+            app:boxStrokeColor="@android:color/white">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/donor_name_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@android:color/white"
                 tools:text="Alok Bharti"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,12 +55,15 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:hint="@string/donor_product_quality"
-            app:boxStrokeColor="@color/colorAccent">
+            android:textColorHint="@android:color/white"
+            app:hintTextColor="@android:color/white"
+            app:boxStrokeColor="@android:color/white">
             <AutoCompleteTextView
                 android:id="@+id/donor_product_quality"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:text="Very Good"
+                android:textColor="@android:color/white"
                 android:editable="false"
                 android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -71,13 +78,16 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:hint="@string/donor_product_category"
-            app:boxStrokeColor="@color/colorAccent">
+            android:textColorHint="@android:color/white"
+            app:hintTextColor="@android:color/white"
+            app:boxStrokeColor="@android:color/white">
             <AutoCompleteTextView
                 android:id="@+id/donor_product_category"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:editable="false"
                 android:inputType="none"
+                android:textColor="@android:color/white"
                 tools:text="Book"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,11 +101,14 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:hint="@string/donor_product_details"
-            app:boxStrokeColor="@color/colorAccent">
+            android:textColorHint="@android:color/white"
+            app:hintTextColor="@android:color/white"
+            app:boxStrokeColor="@android:color/white">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/donor_product_details_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@android:color/white"
                 tools:text="1 pair of shirts of size L"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -109,11 +122,14 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:hint="@string/donor_address"
-            app:boxStrokeColor="@color/colorAccent">
+            android:textColorHint="@android:color/white"
+            app:hintTextColor="@android:color/white"
+            app:boxStrokeColor="@android:color/white">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/donor_address_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textColor="@android:color/white"
                 tools:text="Hall-3, IIIT Jabalpur, M.P."/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,13 +143,16 @@
             android:layout_marginEnd="20dp"
             android:layout_marginTop="5dp"
             android:hint="@string/donor_pincode"
-            app:boxStrokeColor="@color/colorAccent">
+            android:textColorHint="@android:color/white"
+            app:hintTextColor="@android:color/white"
+            app:boxStrokeColor="@android:color/white">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/donor_pincode_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
                 android:maxLength="6"
+                android:textColor="@android:color/white"
                 tools:text="482005"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +161,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_below="@id/donor_pincode_layout">
+            android:layout_below="@id/donor_pincode_layout"
+            android:backgroundTint="@color/colorPrimary2">
 
             <TextView
                 android:layout_width="match_parent"
@@ -150,6 +170,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_below="@id/donor_product_image"
+                android:textColor="@android:color/white"
                 android:text="@string/donor_note" />
 
         </androidx.cardview.widget.CardView>
@@ -160,7 +181,6 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:layout_below="@id/donor_note"
-            android:backgroundTint="@color/colorPrimary"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginTop="10dp"

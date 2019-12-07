@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
+    android:backgroundTint="@color/colorPrimary2"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
@@ -29,7 +30,7 @@
             android:textSize="20sp"
             android:fontFamily="@font/avenir"
             android:textStyle="bold"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/donated_product_condition"
@@ -38,6 +39,7 @@
             android:layout_below="@id/donated_product_details"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="Product Quality: Very Good"/>
 
         <TextView
@@ -47,6 +49,7 @@
             android:layout_below="@id/donated_product_condition"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="Claimed By: Jagriti"/>
 
         <TextView
@@ -57,6 +60,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="10dp"
+            android:textColor="@android:color/white"
             tools:text="Alok Bharti"/>
     </RelativeLayout>
 

@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
+    android:layout_marginBottom="3dp"
+    android:backgroundTint="@color/colorPrimary2"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
@@ -29,7 +30,7 @@
             android:textSize="20sp"
             android:fontFamily="@font/avenir"
             android:textStyle="bold"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/product_condition"
@@ -38,6 +39,7 @@
             android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_details"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="Product Quality: Very Good"/>
 
         <TextView
@@ -47,6 +49,7 @@
             android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_condition"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="Alok Bharti"/>
 
         <TextView
@@ -56,6 +59,7 @@
             android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_name"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="Hall-3, PDPM IIITDM Jabalpur, M.P."/>
 
         <TextView
@@ -64,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_address"
+            android:textColor="@android:color/white"
             tools:text="482005"/>
 
         <TextView
@@ -73,6 +78,7 @@
             android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_pincode"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="+91-9876543210"/>
 
         <TextView
@@ -82,6 +88,7 @@
             android:layout_toEndOf="@id/product_image"
             android:layout_below="@id/product_donor_phone_number"
             android:layout_marginTop="5dp"
+            android:textColor="@android:color/white"
             tools:text="12/21/2019"/>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -99,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/shape"
-            android:layout_below="@id/product_donor_phone_number"
+            android:layout_below="@id/product_image"
             android:text="@string/undo_claim"
             android:visibility="gone"/>
 

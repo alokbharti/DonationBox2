@@ -136,7 +136,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
             ngoLoginLayout.setVisibility(View.GONE);
             verificationLayout.setVisibility(View.VISIBLE);
             timerTv.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
+            resendCodeButton.setVisibility(View.GONE);
 
             sendVerificationCode("+91"+phoneNumber);
             setTimer();
@@ -151,6 +151,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
     }
 
     private void sendVerificationCode(String phoneNumber) {
+        progressBar.setVisibility(View.VISIBLE);
         phoneAuthViewModel.sendCode(phoneNumber);
     }
 
@@ -172,9 +173,10 @@ public class PhoneAuthActivity extends AppCompatActivity {
                     timerTv.setText(String.format("Auto verifying your code %s:%s", min, sec));
                     if(counter[0]==120){
                         this.cancel();
+                        progressBar.setVisibility(View.GONE);
                         resendCodeButton.setVisibility(View.VISIBLE);
-                        timerTv.setText("Unable to get code");
-                        Toast.makeText(PhoneAuthActivity.this, "Please make sure you've an active internet connection or check your mobile number!!", Toast.LENGTH_SHORT).show();
+                        timerTv.setText("Unable to get verification code");
+                        Toast.makeText(PhoneAuthActivity.this, "Please make sure you've an active internet connection or check your mobile number!!", Toast.LENGTH_LONG).show();
                     }
                 });
 

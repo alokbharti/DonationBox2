@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimary2"
     tools:context=".ui.auth.PhoneAuthActivity">
 
     <ImageView
@@ -18,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
         android:textSize="34sp"
         android:fontFamily="@font/avenir"
         android:textStyle="bold"
@@ -53,6 +54,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
                 android:hint="@string/phone_number"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:inputType="phone"
                 android:maxLength="10"
                 android:maxLines="1" />
@@ -64,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ngo_sign_in"
+            android:textColor="@android:color/white"
             android:layout_gravity="end"
             android:layout_marginEnd="24dp"/>
 
@@ -95,6 +100,9 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:hint="@string/ngo_id"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"/>
         <EditText
@@ -102,6 +110,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/ngo_paswword"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:inputType="textPassword"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"/>
@@ -110,6 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/donor_sign_in"
+            android:textColor="@android:color/white"
             android:layout_marginEnd="24dp"
             android:layout_gravity="end"/>
         <Button
