@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.donationbox.R;
+import com.example.donationbox.UtilFunctions;
 import com.example.donationbox.ui.donate.Donor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -38,7 +40,13 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        TextView internetTv = root.findViewById(R.id.internet_text);
         progressBar = root.findViewById(R.id.home_progressbar);
+        if (!UtilFunctions.isOnline(getContext())){
+            progressBar.setVisibility(View.GONE);
+            internetTv.setVisibility(View.VISIBLE);
+        }
+
         productListRecyclerView = root.findViewById(R.id.product_list_recyclerview);
         productListRecyclerView.setHasFixedSize(false);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -53,6 +61,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChanged() {
                 progressBar.setVisibility(View.GONE);
+                internetTv.setVisibility(View.GONE);
             }
 
             @NonNull

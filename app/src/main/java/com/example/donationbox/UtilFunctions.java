@@ -20,10 +20,12 @@ public class UtilFunctions {
         return new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).format(date);
     }
 
-    public static void displaySnackBar(View parentView, String message){
+    public static void displaySnackBar(Context context, View parentView, String message, int marginTop){
         Snackbar snack = Snackbar.make(parentView, message, Snackbar.LENGTH_LONG);
+        snack.setTextColor(context.getResources().getColor(android.R.color.white));
         View view = snack.getView();
         FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+        params.topMargin = marginTop;
         params.gravity = Gravity.TOP;
         view.setLayoutParams(params);
         snack.show();

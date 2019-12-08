@@ -6,6 +6,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/darker_gray">
 
+    <TextView
+        android:id="@+id/internet_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/offline_message"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:fontFamily="@font/avenir"/>
+
     <ProgressBar
         android:id="@+id/home_progressbar"
         android:layout_width="wrap_content"

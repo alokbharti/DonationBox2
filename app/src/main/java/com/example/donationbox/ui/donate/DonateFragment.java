@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.donationbox.R;
+import com.example.donationbox.UtilFunctions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -82,7 +83,10 @@ public class DonateFragment extends Fragment {
         });
 
         donateButton.setOnClickListener(view -> {
-            if(!isImageUploaded){
+            if (!UtilFunctions.isOnline(getContext())){
+                Toast.makeText(getActivity(), getResources().getText(R.string.offline_message), Toast.LENGTH_SHORT).show();
+                return;
+            } else if (!isImageUploaded){
                 Toast.makeText(getActivity(), "Image is not uploaded yet!!", Toast.LENGTH_SHORT).show();
                 return;
             }

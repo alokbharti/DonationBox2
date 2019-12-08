@@ -6,6 +6,7 @@
     <color name="colorAccent">#0080d1</color>
     <color name="colorDark">#000000</color>
     <color name="dull">#BDBDBD</color>
+    <color name="buttonColor">#233877</color>
     <color name="transparent">#00ffffff</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 </resources>

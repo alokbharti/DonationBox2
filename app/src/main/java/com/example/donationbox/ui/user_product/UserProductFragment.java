@@ -47,8 +47,14 @@ public class UserProductFragment extends Fragment {
 
         String phoneNumber = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getPhoneNumber();
 
-        userNote = root.findViewById(R.id.user_note_text);
+        TextView internetTv = root.findViewById(R.id.user_product_internet_text);
         progressBar = root.findViewById(R.id.user_product_progressbar);
+        if (!UtilFunctions.isOnline(getContext())){
+            progressBar.setVisibility(View.GONE);
+            internetTv.setVisibility(View.VISIBLE);
+        }
+
+        userNote = root.findViewById(R.id.user_note_text);
         recyclerView = root.findViewById(R.id.user_product_recyclerview);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,6 +70,7 @@ public class UserProductFragment extends Fragment {
                 Log.e("in", "onDataChanged");
                 progressBar.setVisibility(View.GONE);
                 userNote.setVisibility(View.VISIBLE);
+                internetTv.setVisibility(View.GONE);
             }
 
             @Override

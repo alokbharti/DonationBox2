@@ -18,8 +18,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.donationbox.GlobalSettingsRepository;
+import com.example.donationbox.InternetConnectionLiveData;
 import com.example.donationbox.R;
 import com.example.donationbox.UtilFunctions;
 import com.example.donationbox.ui.auth.PhoneAuthActivity;
@@ -42,6 +44,7 @@ public class NgoActivity extends AppCompatActivity{
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
     boolean isDataFiltered=false;
     EditText editText;
+    private boolean isFirsTimeInternetCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +79,15 @@ public class NgoActivity extends AppCompatActivity{
         ngoViewModel = ViewModelProviders.of(this).get(NgoViewModel.class);
 
         progressBar = findViewById(R.id.ngo_progressbar);
+        TextView internetTv = findViewById(R.id.ngo_internet_text);
+        progressBar = findViewById(R.id.ngo_progressbar);
+        if (!UtilFunctions.isOnline(this)){
+            progressBar.setVisibility(View.GONE);
+            internetTv.setVisibility(View.VISIBLE);
+        }
+
+        observeInternetStatusChanges();
+
         donorListRecyclerView = findViewById(R.id.donor_list_recyclerview);
         donorListRecyclerView.setHasFixedSize(false);
         donorListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,6 +100,7 @@ public class NgoActivity extends AppCompatActivity{
             @Override
             public void onDataChanged() {
                 progressBar.setVisibility(View.GONE);
+                internetTv.setVisibility(View.GONE);
             }
 
             @NonNull
@@ -165,5 +178,16 @@ public class NgoActivity extends AppCompatActivity{
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void observeInternetStatusChanges() {
+        new InternetConnectionLiveData(this).observe(this, isInternetConnected ->{
+            if (!isInternetConnected){
+                UtilFunctions.displaySnackBar(this, findViewById(R.id.ngo_ll), "You're offline, check your internet!!", 0);
+            } else {
+                if (!isFirsTimeInternetCheck) UtilFunctions.displaySnackBar(this, findViewById(R.id.ngo_ll), "We're back again", 0);
+                else isFirsTimeInternetCheck = false;
+            }
+        });
     }
 }

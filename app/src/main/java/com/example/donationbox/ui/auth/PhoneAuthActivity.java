@@ -15,8 +15,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.donationbox.InternetConnectionLiveData;
 import com.example.donationbox.MainActivity;
 import com.example.donationbox.R;
+import com.example.donationbox.UtilFunctions;
 import com.example.donationbox.ui.ngo.NgoActivity;
 
 import java.util.Timer;
@@ -34,6 +36,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
     private Timer timer;
     private int currentLoginState =0; //0 is for phone number layout and 1 for code verification layout
+    private boolean isFirsTimeInternetCheck = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
             }
         });
+
+        observeInternetStatusChanges();
     }
 
     private void initViews() {
@@ -129,6 +134,9 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
             if(phoneNumber.length() < 10){
                 phoneNumberEt.setError("Phone number is wrong!!");
+                return;
+            } else if (!UtilFunctions.isOnline(this)){
+                Toast.makeText(this, getResources().getText(R.string.offline_message), Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -195,5 +203,16 @@ public class PhoneAuthActivity extends AppCompatActivity {
             super.onBackPressed();
             finishAffinity();
         }
+    }
+
+    private void observeInternetStatusChanges() {
+        new InternetConnectionLiveData(this).observe(this, isInternetConnected ->{
+            if (!isInternetConnected){
+                UtilFunctions.displaySnackBar(this, findViewById(R.id.auth_ll), "You're offline, check your internet!!",0);
+            } else {
+                if (!isFirsTimeInternetCheck) UtilFunctions.displaySnackBar(this, findViewById(R.id.auth_ll), "We're back again",0);
+                else isFirsTimeInternetCheck = false;
+            }
+        });
     }
 }
