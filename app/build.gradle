@@ -41,6 +41,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.0'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
 
+    // Firebase AdMob
+    implementation 'com.google.firebase:firebase-ads:18.3.0'
+
     // For displaying image
     implementation 'com.squareup.picasso:picasso:2.5.2'
 

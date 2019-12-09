@@ -20,6 +20,10 @@ import com.example.donationbox.UtilFunctions;
 import com.example.donationbox.ui.donate.Donor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
@@ -92,6 +96,19 @@ public class HomeFragment extends Fragment {
         };
 
         productListRecyclerView.setAdapter(adapter);
+
+        MobileAds.initialize(getContext(), "ca-app-pub-9542285454381078~2501556947");
+        AdView adView = root.findViewById(R.id.adView);
+        adView.setVisibility(View.GONE);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 
         return root;
     }
