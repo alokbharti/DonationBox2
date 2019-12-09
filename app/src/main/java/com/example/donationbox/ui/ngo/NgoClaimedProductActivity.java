@@ -18,6 +18,10 @@ import com.example.donationbox.R;
 import com.example.donationbox.ui.donate.Donor;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -95,6 +99,20 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
         };
 
         claimedListRecyclerView.setAdapter(adapter);
+
+
+        MobileAds.initialize(this, "ca-app-pub-9542285454381078~2501556947");
+        AdView adView = findViewById(R.id.ngo_claimed_adView);
+        adView.setVisibility(View.GONE);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                adView.setVisibility(View.VISIBLE);
+            }
+        });
 
     }
 
