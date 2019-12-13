@@ -48,7 +48,7 @@ public class NgoActivity extends AppCompatActivity{
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
     boolean isDataFiltered=false;
     EditText editText;
-    private boolean isFirsTimeInternetCheck = true;
+    private boolean isFirsTimeInternetCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +151,12 @@ public class NgoActivity extends AppCompatActivity{
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isFirsTimeInternetCheck = true;
     }
 
     @Override

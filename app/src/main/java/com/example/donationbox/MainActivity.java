@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private boolean isFirsTimeInternetCheck = true;
+    private boolean isFirsTimeInternetCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 else isFirsTimeInternetCheck = false;
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isFirsTimeInternetCheck = true;
     }
 
     @Override

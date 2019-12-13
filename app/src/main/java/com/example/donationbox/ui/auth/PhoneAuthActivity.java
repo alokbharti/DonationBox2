@@ -36,7 +36,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
     private Timer timer;
     private int currentLoginState =0; //0 is for phone number layout and 1 for code verification layout
-    private boolean isFirsTimeInternetCheck = true;
+    private boolean isFirsTimeInternetCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,6 +190,12 @@ public class PhoneAuthActivity extends AppCompatActivity {
 
             }
         }, 0, 1000);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isFirsTimeInternetCheck = true;
     }
 
     @Override
