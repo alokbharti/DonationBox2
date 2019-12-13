@@ -95,11 +95,9 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
                     ngoViewModel.isUndoClaimDone(donor, ngoId);
                 });
             }
-
         };
 
         claimedListRecyclerView.setAdapter(adapter);
-
 
         MobileAds.initialize(this, "ca-app-pub-9542285454381078~2501556947");
         AdView adView = findViewById(R.id.ngo_claimed_adView);
