@@ -36,4 +36,5 @@
     <string name="my_claimed_product">My Claimed Product</string>
     <string name="resend">Resend verification code</string>
     <string name="offline_message">You are offline, check your internet!!</string>
+    <string name="menu_contact">Contact Us</string>
 </resources>

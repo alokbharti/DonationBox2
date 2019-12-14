@@ -110,11 +110,12 @@ public class PhoneAuthViewModel extends AndroidViewModel {
     }
 
     public boolean checkNgoCredential(String ngoId, String ngoPassword){
-        String savedId = phoneRepository.getNgoId();
+        String savedId = phoneRepository.getNgoId(ngoId);
         String savedPassword = phoneRepository.getNgoPassword();
         if( !ngoId.equals(savedId) || !ngoPassword.equals(savedPassword)){
             return false;
         } else{
+            phoneRepository.setNgoId(ngoId);
             phoneRepository.setUserType("NGO");
             return true;
         }

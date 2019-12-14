@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.R;
@@ -34,6 +35,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter adapter;
     private String ngoId = "";
     private ProgressBar progressBar;
+    private TextView ngoNoteText;
     //get Firebase Reference
     DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
     
@@ -51,6 +53,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
         ngoViewModel = ViewModelProviders.of(this).get(NgoViewModel.class);
 
         progressBar = findViewById(R.id.ngo_claimed_progressbar);
+        ngoNoteText = findViewById(R.id.ngo_note_text);
         claimedListRecyclerView = findViewById(R.id.claimed_list_recyclerview);
         claimedListRecyclerView.setHasFixedSize(false);
         claimedListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -68,6 +71,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
             @Override
             public void onDataChanged() {
                 progressBar.setVisibility(View.GONE);
+                ngoNoteText.setVisibility(View.VISIBLE);
             }
 
             @NonNull
@@ -80,6 +84,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull NgoViewHolder holder, int position, @NonNull Donor donor) {
                 Log.e("pincode", String.valueOf(donor.getDonorPincode()));
+                if (donor.getDonorProductClaimedBy().length()!=0) ngoNoteText.setVisibility(View.INVISIBLE);
                 holder.productDetails.setText(donor.getDonorProductDetails());
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
                 holder.userAddress.setText(donor.getDonorAddress());

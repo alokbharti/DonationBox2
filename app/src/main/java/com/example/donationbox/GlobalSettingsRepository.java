@@ -15,7 +15,7 @@ public class GlobalSettingsRepository {
 
     public static String getNgoId(Context context){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getString(Constants.NGO_ID, "jagriti");
+        return sharedPreferences.getString(Constants.NGO_ID, "");
     }
 
     public static void setNgoPassword(Context context, String password){

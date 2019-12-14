@@ -10,8 +10,11 @@ import com.google.android.material.snackbar.Snackbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -46,12 +49,24 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_donate, R.id.nav_user_product, R.id.nav_share, R.id.nav_send)
+                R.id.nav_home, R.id.nav_donate, R.id.nav_user_product)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        MenuItem contactUsItem = navigationView.getMenu().findItem(R.id.nav_contact);
+        contactUsItem.setOnMenuItemClickListener(item -> {
+            onBackPressed();
+            String email = "bhartialok.257@gmail.com";
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding my problem");
+            startActivity(Intent.createChooser(intent, "Contact us..."));
+            return true;
+        });
 
         observeInternetStatusChanges();
         View headerView = navigationView.getHeaderView(0);

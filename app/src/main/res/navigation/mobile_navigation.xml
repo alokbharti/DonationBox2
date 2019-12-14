@@ -23,15 +23,15 @@
         android:label="@string/menu_user_product"
         tools:layout="@layout/fragment_user_product" />
 
-    <fragment
-        android:id="@+id/nav_share"
+    <!--<fragment
+        android:id="@+id/nav_contact"
         android:name="com.example.donationbox.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_share" />-->
 
-    <fragment
+    <!--<fragment
         android:id="@+id/nav_send"
         android:name="com.example.donationbox.ui.send.SendFragment"
         android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_send" />-->
 </navigation>
