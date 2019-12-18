@@ -61,7 +61,9 @@ public class ProductDataRepository {
         isProductUpdated.setValue(false);
 
         donor.setDonorProductIsClaimed(true);
-        donor.setDonorProductClaimedBy(ngoId);
+        //remove @12 from id
+        donor.setDonorProductClaimedBy(ngoId.substring(0, ngoId.length()-3));
+
         FirebaseDatabase.getInstance().getReference().child("Donor")
                 .child(String.valueOf(donor.getDonatedTimestamp()))
                 .setValue(donor)

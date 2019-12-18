@@ -71,7 +71,7 @@ public class UserProductFragment extends Fragment {
 
             @Override
             public void onDataChanged() {
-                Log.e("in", "onDataChanged");
+                //Log.e("in", "onDataChanged");
                 progressBar.setVisibility(View.GONE);
                 userNote.setVisibility(View.VISIBLE);
                 internetTv.setVisibility(View.GONE);
@@ -80,7 +80,7 @@ public class UserProductFragment extends Fragment {
             @Override
             public void onError(@NonNull DatabaseError error) {
                 progressBar.setVisibility(View.GONE);
-                Log.e("Error", error.getDetails());
+                //Log.e("Error", error.getDetails());
                 Toast.makeText(getContext(), "Error loading data!!", Toast.LENGTH_SHORT).show();
             }
 
@@ -93,8 +93,8 @@ public class UserProductFragment extends Fragment {
 
             @Override
             protected void onBindViewHolder(@NonNull UserProductViewHolder holder, int position, @NonNull Donor donor) {
-                Log.e("in", "onBindView");
-                userNote.setVisibility(View.GONE);
+                //Log.e("in", "onBindView");
+                if (donor.getDonorPhoneNumber().length()!=0) userNote.setVisibility(View.GONE);
                 holder.productDetails.setText(donor.getDonorProductDetails());
                 holder.productTimestamp.setText(UtilFunctions.getDateFromTimeStamp(donor.getDonatedTimestamp()));
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));

@@ -19,7 +19,9 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.donationbox.FirebaseFilterableRecyclerAdapter;
 import com.example.donationbox.GlobalSettingsRepository;
 import com.example.donationbox.InternetConnectionLiveData;
 import com.example.donationbox.R;
@@ -49,6 +51,8 @@ public class NgoActivity extends AppCompatActivity{
     boolean isDataFiltered=false;
     EditText editText;
     private boolean isFirsTimeInternetCheck;
+    private FirebaseFilterableRecyclerAdapter filterableRecyclerAdapter;
+    private TextView emptyDonationTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,17 +67,13 @@ public class NgoActivity extends AppCompatActivity{
             editText = getSupportActionBar().getCustomView().findViewById(R.id.pincode_edit_text);
             editText.setOnEditorActionListener((v, actionId, event) -> {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH){
+                    if (v.getText().length()<6){
+                        Toast.makeText(this, "Enter valid pincode!!", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
                     isDataFiltered=true;
                     progressBar.setVisibility(View.VISIBLE);
-                    Query filterQuery = dbRef.child("Donor").orderByChild("donorPincode").equalTo(Integer.parseInt(String.valueOf(v.getText())));
-                    FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>()
-                            .setQuery(filterQuery, snapshot -> {
-                                Donor donor = snapshot.getValue(Donor.class);
-                                return !donor.getDonorProductIsClaimed() ? donor : null;
-                            })
-                            .build();
-                    adapter.updateOptions(options);
-                    adapter.onDataChanged();
+                    setFilteredAdapter(v.getText().toString());
                     return true;
                 }
                 return false;
@@ -84,6 +84,7 @@ public class NgoActivity extends AppCompatActivity{
 
         progressBar = findViewById(R.id.ngo_progressbar);
         TextView internetTv = findViewById(R.id.ngo_internet_text);
+        emptyDonationTv = findViewById(R.id.empty_donation_text);
         progressBar = findViewById(R.id.ngo_progressbar);
         if (!UtilFunctions.isOnline(this)){
             progressBar.setVisibility(View.GONE);
@@ -105,6 +106,8 @@ public class NgoActivity extends AppCompatActivity{
             public void onDataChanged() {
                 progressBar.setVisibility(View.GONE);
                 internetTv.setVisibility(View.GONE);
+
+                if(options.getSnapshots().isEmpty()) emptyDonationTv.setVisibility(View.VISIBLE);
             }
 
             @NonNull
@@ -116,7 +119,7 @@ public class NgoActivity extends AppCompatActivity{
 
             @Override
             protected void onBindViewHolder(@NonNull NgoViewHolder holder, int position, @NonNull Donor donor) {
-                Log.e("pincode", String.valueOf(donor.getDonorPincode()));
+                //Log.e("pincode", String.valueOf(donor.getDonorPincode()));
                 holder.productDetails.setText(donor.getDonorProductDetails());
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
                 holder.userAddress.setText(donor.getDonorAddress());
@@ -131,6 +134,10 @@ public class NgoActivity extends AppCompatActivity{
                 });
             }
 
+            @Override
+            public int getItemCount() {
+                return super.getItemCount();
+            }
         };
 
         donorListRecyclerView.setAdapter(adapter);
@@ -193,7 +200,10 @@ public class NgoActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         if(isDataFiltered){
-            Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed");
+            filterableRecyclerAdapter.stopListening();
+            filterableRecyclerAdapter.onDetachedFromRecyclerView(donorListRecyclerView);
+            donorListRecyclerView.setAdapter(adapter);
+            Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed").equalTo(false);
             FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>().setQuery(query, Donor.class).build();
             adapter.updateOptions(options);
             editText.setText("");
@@ -212,5 +222,64 @@ public class NgoActivity extends AppCompatActivity{
                 else isFirsTimeInternetCheck = false;
             }
         });
+    }
+
+    private void setFilteredAdapter(String pincode){
+        Query filterQuery = dbRef.child("Donor").orderByChild("donorPincode").equalTo(Integer.parseInt(pincode));
+        FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>()
+                .setQuery(filterQuery, Donor.class)
+                .build();
+
+        filterableRecyclerAdapter = new FirebaseFilterableRecyclerAdapter<Donor, NgoViewHolder>(options, true){
+
+            @Override
+            public void onDataChanged() {
+                //constraint doesn't matter 'cause filter is working isClaimed property
+                filterableRecyclerAdapter.getFilter().filter("Doesn't matter");
+                progressBar.setVisibility(View.GONE);
+
+                if(options.getSnapshots().isEmpty()) emptyDonationTv.setVisibility(View.VISIBLE);
+            }
+
+            @NonNull
+            @Override
+            public NgoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(NgoActivity.this).inflate(R.layout.ngo_product_list_item, parent, false);
+                return new NgoViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(@NonNull NgoViewHolder holder, int position, @NonNull Donor donor) {
+                //Log.e("pincode", String.valueOf(donor.getDonorPincode()));
+                if(donor.getDonorProductIsClaimed()) emptyDonationTv.setVisibility(View.VISIBLE);
+
+                holder.productDetails.setText(donor.getDonorProductDetails());
+                holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
+                holder.userAddress.setText(donor.getDonorAddress());
+                holder.userName.setText(donor.getDonorName());
+                holder.userPincode.setText(String.valueOf(donor.getDonorPincode()));
+                holder.userPhoneNumber.setText(String.valueOf(donor.getDonorPhoneNumber()));
+                holder.userDate.setText(UtilFunctions.getDateFromTimeStamp(donor.getDonatedTimestamp()));
+                Picasso.with(NgoActivity.this).load(donor.getDonorProductImageUrl()).into(holder.productImage);
+
+                holder.claimButton.setOnClickListener(v -> {
+                    ngoViewModel.isProductClaimed(donor, ngoId);
+                });
+            }
+
+            @Override
+            public int getItemCount() {
+                return super.getItemCount();
+            }
+
+            @Override
+            protected boolean filterCondition(Donor donor, String filterPattern) {
+                return !donor.getDonorProductIsClaimed();
+            }
+        };
+
+        adapter.onDetachedFromRecyclerView(donorListRecyclerView);
+        filterableRecyclerAdapter.startListening();
+        donorListRecyclerView.setAdapter(filterableRecyclerAdapter);
     }
 }

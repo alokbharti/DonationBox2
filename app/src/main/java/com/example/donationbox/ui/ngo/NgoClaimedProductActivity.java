@@ -58,12 +58,10 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
         claimedListRecyclerView.setHasFixedSize(false);
         claimedListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        Query query = dbRef.child("Donor").orderByChild("donorProductIsClaimed").equalTo(true);
+        String ngoId = GlobalSettingsRepository.getNgoId(this);
+        Query query = dbRef.child("Donor").orderByChild("donorProductClaimedBy").equalTo(ngoId.substring(0, ngoId.length()-3));
         FirebaseRecyclerOptions<Donor> options = new FirebaseRecyclerOptions.Builder<Donor>()
-                .setQuery(query, snapshot->{
-                    Donor donor = snapshot.getValue(Donor.class);
-                    return donor.getDonorProductClaimedBy().equals(GlobalSettingsRepository.getNgoId(this)) ? donor : null;
-                })
+                .setQuery(query, Donor.class)
                 .build();
 
         adapter = new FirebaseRecyclerAdapter<Donor, NgoViewHolder>(options){
@@ -71,7 +69,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
             @Override
             public void onDataChanged() {
                 progressBar.setVisibility(View.GONE);
-                ngoNoteText.setVisibility(View.VISIBLE);
+                if (options.getSnapshots().isEmpty()) ngoNoteText.setVisibility(View.VISIBLE);
             }
 
             @NonNull
@@ -83,8 +81,7 @@ public class NgoClaimedProductActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull NgoViewHolder holder, int position, @NonNull Donor donor) {
-                Log.e("pincode", String.valueOf(donor.getDonorPincode()));
-                if (donor.getDonorProductClaimedBy().length()!=0) ngoNoteText.setVisibility(View.INVISIBLE);
+                //Log.e("pincode", String.valueOf(donor.getDonorPincode()));
                 holder.productDetails.setText(donor.getDonorProductDetails());
                 holder.productQuality.setText(String.format("Product Quality: %s", donor.getDonorProductQuality()));
                 holder.userAddress.setText(donor.getDonorAddress());

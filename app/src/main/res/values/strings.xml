@@ -6,6 +6,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_sign_out">Sign Out</string>
+    <string name="banner_id">ca-app-pub-9542285454381078/2094362830</string>
+    <string name="banner_test_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
@@ -37,4 +39,5 @@
     <string name="resend">Resend verification code</string>
     <string name="offline_message">You are offline, check your internet!!</string>
     <string name="menu_contact">Contact Us</string>
+    <string name="empty_donation_message">It seems no product have been donated yet!!</string>
 </resources>

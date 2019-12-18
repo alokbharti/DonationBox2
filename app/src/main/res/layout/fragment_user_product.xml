@@ -31,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:visibility="gone"
-        tools:text="You haven't donated any product yet!!"/>
+        android:text="You haven't donated any product yet!!"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/user_product_recyclerview"
@@ -48,7 +48,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="@string/banner_test_id">
     </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

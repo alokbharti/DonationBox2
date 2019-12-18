@@ -16,6 +16,17 @@
         android:layout_marginTop="10dp"/>
 
     <TextView
+        android:id="@+id/empty_donation_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_donation_message"
+        android:layout_centerInParent="true"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/avenir"/>
+
+    <TextView
         android:id="@+id/ngo_internet_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +40,7 @@
         android:id="@+id/donor_list_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/ngo_adView"
         tools:context=".ui.ngo.NgoActivity">
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -40,7 +52,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        ads:adUnitId="@string/banner_test_id">
     </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>

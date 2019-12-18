@@ -47,7 +47,7 @@ public class PhoneAuthActivity extends AppCompatActivity {
         phoneAuthViewModel = ViewModelProviders.of(this).get(PhoneAuthViewModel.class);
         phoneAuthViewModel.getDonorLoginStatus().observe(this, isDonor ->{
             if (isDonor){
-                Log.e("User", "Donor");
+                //Log.e("User", "Donor");
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

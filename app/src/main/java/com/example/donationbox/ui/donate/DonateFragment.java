@@ -115,7 +115,7 @@ public class DonateFragment extends Fragment {
                     imageDownloadUrl, "", phoneNumber,
                     Integer.parseInt(pincode), System.currentTimeMillis(), false);
 
-            Log.e("Donor details", ""+name+" "+address+" "+ productDetails+" "+ productCategory+" "+ productQuality+" "+ imageDownloadUrl+" "+ phoneNumber);
+            //Log.e("Donor details", ""+name+" "+address+" "+ productDetails+" "+ productCategory+" "+ productQuality+" "+ imageDownloadUrl+" "+ phoneNumber);
 
             donateViewModel.getDonorDataUploadingStatus(donor).observe(this, isUploaded -> {
                 if(isUploaded){

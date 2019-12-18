@@ -26,7 +26,7 @@ public class DonorRepository {
                     return storageReference.getDownloadUrl();
                 })
                 .addOnSuccessListener(uri1 -> {
-                    Log.e("Image upload success", uri1.toString());
+                    //Log.e("Image upload success", uri1.toString());
                     imageUrl.setValue(uri1.toString());
                 });
 
