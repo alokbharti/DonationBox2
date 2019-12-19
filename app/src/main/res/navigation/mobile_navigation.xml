@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.donationbox.ui.home.HomeFragment"
+        android:name="com.alokbharti.donationbox.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_donate"
-        android:name="com.example.donationbox.ui.donate.DonateFragment"
+        android:name="com.alokbharti.donationbox.ui.donate.DonateFragment"
         android:label="@string/menu_donate"
         tools:layout="@layout/fragment_donor" />
 
     <fragment
         android:id="@+id/nav_user_product"
-        android:name="com.example.donationbox.ui.user_product.UserProductFragment"
+        android:name="com.alokbharti.donationbox.ui.user_product.UserProductFragment"
         android:label="@string/menu_user_product"
         tools:layout="@layout/fragment_user_product" />
 

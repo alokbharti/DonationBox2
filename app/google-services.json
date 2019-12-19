@@ -8,6 +8,43 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:960674817288:android:37b9a18538921e265038bd",
+        "android_client_info": {
+          "package_name": "com.alokbharti.donationbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960674817288-2ibs74bd4gtdug8tqhnd89er9lcikfm4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alokbharti.donationbox",
+            "certificate_hash": "71d005d4acc8572b1a7d320a8b5c11fc83a62a66"
+          }
+        },
+        {
+          "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpo_FLocFd5P9JKRJn6i0E82o9iCjmUeI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:960674817288:android:7ae48c1c8442706e",
         "android_client_info": {
           "package_name": "com.example.alokbharti.homeofthings"
