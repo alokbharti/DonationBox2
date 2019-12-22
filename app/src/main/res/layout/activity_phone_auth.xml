@@ -159,6 +159,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Auto Verifying your code 00:00"
+            android:textColor="@android:color/white"
             android:visibility="gone"/>
 
         <Button
