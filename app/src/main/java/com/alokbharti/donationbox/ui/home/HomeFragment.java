@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment {
 
         productListRecyclerView.setAdapter(adapter);
 
-        MobileAds.initialize(getContext(), "ca-app-pub-9542285454381078~2501556947");
+        MobileAds.initialize(getContext(), "adview-key");
         AdView adView = root.findViewById(R.id.adView);
         adView.setVisibility(View.GONE);
         AdRequest adRequest = new AdRequest.Builder().build();
