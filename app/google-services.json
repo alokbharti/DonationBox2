@@ -1,45 +1,48 @@
 {
   "project_info": {
-    "project_number": "960674817288",
-    "firebase_url": "https://homeofthings-6bd00.firebaseio.com",
-    "project_id": "homeofthings-6bd00",
-    "storage_bucket": "homeofthings-6bd00.appspot.com"
+    "project_number": "",
+    "project_id": ""
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:960674817288:android:37b9a18538921e265038bd",
+        "mobilesdk_app_id": "1:123456789012:android:1234567890123456",
         "android_client_info": {
-          "package_name": "com.alokbharti.donationbox"
+          "package_name": "com.your.package"
         }
       },
       "oauth_client": [
         {
-          "client_id": "960674817288-2ibs74bd4gtdug8tqhnd89er9lcikfm4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.alokbharti.donationbox",
-            "certificate_hash": "71d005d4acc8572b1a7d320a8b5c11fc83a62a66"
-          }
+          "client_id": "",
+          "client_type": 3
         },
         {
-          "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.your.package",
+            "certificate_hash": ""
+          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCpo_FLocFd5P9JKRJn6i0E82o9iCjmUeI"
+          "current_key": ""
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": ""
+          }
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "960674817288-g97h1pk9t2ei6of60eds77ge6lkqhcf1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
         }
       }
     }
